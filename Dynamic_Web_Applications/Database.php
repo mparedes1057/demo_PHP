@@ -1,11 +1,14 @@
 <?php
 class Database{
     public $connection;
-    public function __construct()
+    public function __construct($config, $username = 'root', $password = '')
     {
-        $dsn = "mysql:host=localhost;port=3306;dbname=myAppDemo;user=root;charset=utf8mb4";    //connexio a la db
+        //connexio a la db
+        $dsn =  "mysql:" . http_build_query($config, '', ';');//example.com?host=localhost&port=3306&dbname=myAppDemo
 
-        $this->connection = new PDO($dsn);    //crea una instancia de la db
+        $this->connection = new PDO($dsn, $username, $password, [
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);    //crea una instancia de la db
 
     }
 
