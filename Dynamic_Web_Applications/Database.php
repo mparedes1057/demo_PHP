@@ -12,11 +12,11 @@ class Database{
 
     }
 
-    public function query($query)
+    public function query($query, $params = [])
     {
         $statement = $this->connection-> prepare($query);   //prepara la consulta
 
-        $statement -> execute();   //executa la consulta
+        $statement -> execute($params);   //executa la consulta
 
         return $statement;    //obtenim els resultats en format array asosiatiu
     }
