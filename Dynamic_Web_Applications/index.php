@@ -4,7 +4,11 @@ require 'functions.php';
 
 require 'Database.php';
 
-//require 'router.php';
+require 'Response.php';
+
+require 'router.php';
+
+/*
 $config = require ('config.php');
 
 $db = new Database($config['database']);
@@ -15,3 +19,4 @@ $query = "select * from posts where id = :id;"; //no s'ha de permetre que l'entr
 $posts = $db ->query($query, [':id' => $id]) -> fetch();
 
 dd($posts['title']);
+*/
