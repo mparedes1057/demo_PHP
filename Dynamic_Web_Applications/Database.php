@@ -1,6 +1,10 @@
 <?php
 class Database{
     public $connection;
+
+    public $statement;
+
+
     public function __construct($config, $username = 'root', $password = '')
     {
         //connexio a la db
@@ -14,13 +18,39 @@ class Database{
 
     public function query($query, $params = [])
     {
-        $statement = $this->connection-> prepare($query);   //prepara la consulta
+        $this -> statement = $this->connection-> prepare($query);   //prepara la consulta
 
-        $statement -> execute($params);   //executa la consulta
+        $this -> statement -> execute($params);   //executa la consulta
 
-        return $statement;    //obtenim els resultats en format array asosiatiu
+        return $this;    //obtenim els resultats en format array asosiatiu
+    }
+
+    public function get()
+    {
+        return $this ->statement -> fetchAll();
+    }
+
+    public function find()
+    {
+        return $this -> statement -> fetch();
+    }
+
+    public function findOrFail()
+    {
+        $result = $this -> statement -> fetch();
+
+        if (! $result){
+            abort();
+        }
+
+        return $result;
     }
 }
+
+
+
+
+
 //connect to our MySQL database
 
 //foreach ($posts as $post){   //recorrem els resultats

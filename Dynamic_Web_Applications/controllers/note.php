@@ -10,17 +10,11 @@ $heading = 'Note';
 
 $note = $db -> query('select * from notes where id = :id', [
     'id' => $_GET['id']
-])->fetch();
-
-if (! $note){
-    abort();
-}
+])->findOrFail();
 
 $currentUserId = 3;
 
-if ($note['user_id'] !== $currentUserId){
-    abort(Response::FORBIDDEN);
-}
+autorize($note['user_id'] === $currentUserId);
 
 
 require "views/note.view.php";
