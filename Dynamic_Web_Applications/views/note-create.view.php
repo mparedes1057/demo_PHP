@@ -16,7 +16,17 @@
                                         <Label for="body" class="block text-sm font-medium text-gray-700">Body</Label>
 
                                         <div class="mt-1">
-                                            <textarea id="body" name="body" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus: border-indigo-500 focus:ring-indigo-500 sm: text-sm" placeholder="Here's an idea for a note..."></textarea>
+                                            <textarea
+                                                    id="body"
+                                                    name="body"
+                                                    rows="3"
+                                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus: border-indigo-500 focus:ring-indigo-500 sm: text-sm"
+                                                    placeholder="Here's an idea for a note..."
+                                                    ><?= isset($_POST['body'])? $_POST['body'] : '' ?></textarea> <!--requereix que l'usuari no ens enviï el formulari buid, pero no basta........ se pot fer: isset($_POST['body']) ?? '' -->
+
+                                            <?php if (isset($errors['body'])) : ?>
+                                                <p class="text-red-500 text-xs mt-2"><?= $errors['body'] ?></p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
