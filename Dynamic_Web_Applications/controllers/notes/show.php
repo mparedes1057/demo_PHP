@@ -10,21 +10,7 @@ $db = new Database($config['database']);
 $currentUserId = 3;
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $note = $db->query('select * from notes where id = :id', [
-        'id' => $_GET['id']
-    ])->findOrFail();
 
-    autorize($note['user_id'] === $currentUserId);
-
-    //form was submitted delete the current note
-    $db ->query('delete from notes where id = :id', [
-        'id' => $_GET['id']
-    ]);
-
-    header('location: /notes');
-    exit();
-} else {
     $note = $db->query('select * from notes where id = :id', [
         'id' => $_GET['id']
     ])->findOrFail();
@@ -36,4 +22,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         'heading' => 'Note',
         'note' => $note,
     ]);
-}
