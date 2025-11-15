@@ -10,7 +10,9 @@
                         <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
                         <a href="/" aria-current="page" class="rounded-md <?= urlIS('/demo/Dynamic_Web_Applications/index.php') ? 'bg-gray-900 text-white' : 'text-gray-300'?> px-3 py-2 text-sm font-medium hover:text-white"">Home</a>
                         <a href="/about" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/about') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">About</a>
-                        <a href="/notes" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/notes') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">Notes</a>
+                        <?php if ($_SESSION['user'] ?? false) : ?>
+                            <a href="/notes" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/notes') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">Notes</a>
+                        <?php endif ?>
                         <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/contact') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">Contact</a>
                     </div>
                 </div>
@@ -35,7 +37,8 @@
                                 </button>
                             <?php else : ?>
                                 </button>
-                                <a href="/register" class="text-white">Register</a>
+                                <a href="/register" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/register') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">Register</a>
+                                <a href="/login" class="rounded-md px-3 py-2 text-sm font-medium <?= urlIS('/login') ? 'bg-gray-900 text-white' : 'text-gray-300'?> hover:text-white">Log in</a>
                             <?php endif; ?>
 
                         <el-menu anchor="bottom end" popover class="w-48 origin-top-right rounded-md bg-gray-800 py-1 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
@@ -44,6 +47,16 @@
                             <a href="#" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Sign out</a>
                         </el-menu>
                     </el-dropdown>
+
+                    <?php if ($_SESSION['user'] ?? false) : ?>
+                        <div class="ml-3">
+                            <form method="POST" action="/session">
+                                <input type="hidden" name="_method" value="DELETE">
+
+                                <button class="text-white">Log Out</button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="-mr-2 flex md:hidden">
