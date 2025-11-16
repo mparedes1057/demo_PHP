@@ -9,19 +9,11 @@ $db = App::resolve(Database::class);
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$errors = [];
+$form = new LoginForm();
 
-if (!Validator::email($email)){
-    $errors['email'] = 'Please provide an email address.';
-}
-
-if (!Validator::string($password)){
-    $errors['password'] = 'Please provide a valid password.';
-}
-
-if (! empty($errors)){
+if (! $form->validate(Semail, $password)) {
     return view('session/create.view.php', [
-        'errors' => $errors
+        'errors' => $form->errors()
     ]);
 }
 
@@ -46,8 +38,4 @@ return view('session/create.view.php', [
     'errors' => [
         'email' => 'No mathcing accound found for that email address.'
     ]
-]);
-
-login([
-    'email' => $email
 ]);
